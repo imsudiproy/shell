@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set the project name
-project(Booking)
+project(shell)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "include/*.h")
 
-add_executable(booking ${SOURCES} ${HEADERS})
+add_executable(shell ${SOURCES} ${HEADERS})
 
 # Include directories
 include_directories(include)
