@@ -1,9 +1,14 @@
-#include<iostream>
+#include <iostream>
+#include <string>
+#include <vector>
+#include "inputParser.h"
 using namespace std;
-
-int sum(int a, int b);
-
 int main(){
-    int a = 8, b = 2;
-    cout<<sum(a, b);
+    while(true) {
+        printf(" $ ");
+        string input;
+        getline(cin, input);
+
+        vector<string> parsedInput = parser(input);
+    }
 }
