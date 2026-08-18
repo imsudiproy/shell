@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, closed]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.os_name }} (${{ matrix.arch }})
+    # A closed pull request only runs this job when it was merged.
+    if: >-
+      github.event.action != 'closed' ||
+      github.event.pull_request.merged == true
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            os_name: Linux
+            arch: amd64
+          - os: ubuntu-24.04-arm
+            os_name: Linux
+            arch: arm64
+          - os: macos-13
+            os_name: macOS
+            arch: amd64
+          - os: macos-14
+            os_name: macOS
+            arch: arm64
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release --parallel

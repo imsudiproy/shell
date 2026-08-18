@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <iostream>
+#include "cd.h"
 
 
 string executeCommand(vector<string> input) {
@@ -28,6 +29,14 @@ string executeCommand(vector<string> input) {
 
     else {
         perror("Fork failed");
+    }
+
+    if(input[0] == "cd") {
+        if (input.size() == 1) {
+            return "Path not provided";
+        }
+        changeDir(input[1]);
+        return "";
     }
 
     return "";
